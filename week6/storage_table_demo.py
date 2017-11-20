@@ -1,3 +1,4 @@
+#import string,random,time,azurerm,json
 import string,random,time,azurerm,json
 from azure.storage.table import TableService, Entity
 
@@ -127,7 +128,7 @@ time.sleep(1)
 
 coffee = Entity()
 coffee.PartitionKey = 'coffehouse'
-coffee.RowKey = '001'
+coffee.RowKey = '003'
 coffee.brand = 'Maxwell'
 coffee.flavor = 'decaf'
 coffee.size = 'small'
@@ -147,17 +148,17 @@ raw_input('Press Enter to continue...')
 # Structuring queries like this improves performance as your application scales up and keeps the queries efficient
 items = table_service.query_entities('itemstable', filter="PartitionKey eq 'inventory'", select='year,make,model,price')
 for item in items:
-    print('Name: ' + item.year)
-    print('Name: ' + item.make)
-    print('Name: ' + item.model)
-    print('Cost: ' + str(item.price) + '\n')
+    print('Year: ' + item.year)
+    print('Make: ' + item.make)
+    print('Model: ' + item.model)
+    print('Price: ' + str(item.price) + '\n')
 
-items = table_service.query_entities('itemstable', filter="PartitionKey eq 'coffehouse'", select='brand,flavor,size,cost')
+items = table_service.query_entities('itemstable', filter="PartitionKey eq 'coffee'", select='brand,flavor,size,cost')
 for item in items:
-    print('Name: ' + item.brand)
-    print('Name: ' + item.flavor)
-    print('Name: ' + item.size)
-    print('Price: ' + str(item.cost) + '\n')
+    print('Brand: ' + item.brand)
+    print('Flavor: ' + item.flavor)
+    print('Size: ' + item.size)
+    print('Cost: ' + str(item.cost) + '\n')
 
 time.sleep(1)
 
