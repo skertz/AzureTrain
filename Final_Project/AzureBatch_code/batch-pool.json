@@ -1,0 +1,80 @@
+{
+    "parameters": {
+        "nodeCount": {
+            "type": "int",
+            "metadata": {
+                "description": "The number of pool nodes"
+            }
+        },
+        "poolId": {
+            "type": "string",
+            "metadata": {
+                "description": "The pool ID "
+            }
+        }
+    },
+    "pool": {
+        "type": "Microsoft.Batch/batchAccounts/pools",
+        "apiVersion": "2016-12-01",
+        "properties": {
+            "id": "[parameters('poolId')]",
+            "virtualMachineConfiguration": {
+                "imageReference": {
+                    "publisher": "Canonical",
+                    "offer": "UbuntuServer",
+                    "sku": "16.04.0-LTS",
+                    "version": "latest"
+                },
+                "nodeAgentSKUId": "batch.node.ubuntu 16.04"
+            },
+            "vmSize": "STANDARD_A1",
+            "enableInterNodeCommunication": true,
+            "targetDedicatedNodes": "[parameters('nodeCount')]",
+            "enableAutoScale": false,
+            "maxTasksPerNode": 1,
+            "taskSchedulingPolic": {
+                "nodeFillType": "pack"
+            },
+            "url": "https://batchkirkdahl.eastus.batch.azure.com/pools/webservers",
+            "networkConfiguration": {
+                "poolendpointConfiguration": {
+                    "inboundNatPools": [
+                        {
+                        "backendPort": 80,
+                        "frontendPortRangeEnd": 4000,
+                        "frontendPortRangeStart": 3000,
+                        "name": "http.0",
+                        "networkSecurityGroupRules": [
+                            {
+                                "access": "allow",
+                                "priority": 150,
+                                "sourceAddressPrefix": "*"
+                            }
+                        ],
+                        "protocol": "tcp"
+                        }
+                    ]
+                   
+                },
+                "subnetId": "/subscriptions/21ad651f-2ff2-49d2-87b2-50c56efef22c/resourceGroups/rg-kirkdahl/providers/Microsoft.Network/virtualNetworks/vnet-kirkdahl/subnets/subnet-kirkdahl"
+            },
+            "applicationPackageReferences": [
+                {    
+                    "applicationId": "PartyApp",
+                    "version": 1.0 
+                }    
+            ],
+            "packageReferences": [
+                {
+                    "type": "aptPackage",
+                    "id": "apache2"
+                },
+                {
+                    "type": "aptPackage",
+                    "id": "unzip"
+                }    
+               
+            ]
+        }
+    }
+}

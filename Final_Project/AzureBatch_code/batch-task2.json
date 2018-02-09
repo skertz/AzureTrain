@@ -1,0 +1,24 @@
+{
+  "applicationPackageReferences": [
+    {
+      "applicationId": "partyapp",
+      "version": "1.0"
+    }
+  ],
+  "commandLine": "sudo -S systemctl restart apache2",
+  "constraints": {
+    "maxTaskRetryCount": 1
+  },
+  "containerSettings": null,
+  "dependsOn": null,
+  "displayName": "unzip",
+  "id": "restartApache",
+  "userIdentity": {
+    "autoUser": {
+      "elevationLevel": "admin",
+      "scope": "task"
+    },
+    "userName": null
+  }
+
+}

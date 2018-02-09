@@ -1,0 +1,25 @@
+{
+  "applicationPackageReferences": [
+    {
+      "applicationId": "partyapp",
+      "version": "1.0"
+    }
+  ],
+  "commandLine": "sudo -S unzip -u /mnt/batch/tasks/apppackages/partyapp*.zip -d /var/www/html",
+  "constraints": {
+    "maxTaskRetryCount": 1
+  },
+  "containerSettings": null,
+  "dependsOn": null,
+  "displayName": "unzip",
+  "id": "unzipSite",
+  "userIdentity": {
+    "autoUser": {
+      "elevationLevel": "admin",
+      "scope": "task"
+    },
+    "userName": null
+  }
+
+}
+
